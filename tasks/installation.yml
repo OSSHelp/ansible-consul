@@ -1,0 +1,49 @@
+---
+
+- name: install unzip
+  apt:
+    name: unzip
+    state: present
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: binary installation
+  block:
+    - name: create needed directories if necesary
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ consul_binary_dir }}"
+        - "/tmp/consul_{{ consul_version }}"
+
+    - name: download archived binary
+      get_url:
+        url: "{{ consul_binary_url }}"
+        checksum: "sha256:{{ consul_binary_checksum }}"
+        dest: "/tmp/consul_{{ consul_version }}"
+        owner: "root"
+        group: "root"
+        mode: 0600
+
+    - name: unarchive downloaded binary to {{ consul_binary_dir }}
+      unarchive:
+        src: "/tmp/consul_{{ consul_version }}/{{ consul_archive_name }}"
+        dest: "/tmp/consul_{{ consul_version }}"
+        remote_src: yes
+
+    - name: copy new binary to {{ consul_binary_dir }}
+      copy:
+        src: "/tmp/consul_{{ consul_version }}/consul"
+        dest: "{{ consul_binary_dir }}/{{ consul_binary_name }}"
+        owner: root
+        group: root
+        mode: 0755
+        remote_src: yes
+      notify: restart consul service
+
+    - name: remove temporal directory
+      file:
+        path: "/tmp/consul_{{ consul_version }}"
+        state: absent
+  when: not ansible_check_mode

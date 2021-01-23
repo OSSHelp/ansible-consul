@@ -1,0 +1,16 @@
+---
+
+- name: check if binary already exists
+  stat:
+    path: "{{ consul_binary_dir }}/{{ consul_binary_name }}"
+  register: binary_check_result
+
+- name: install binary
+  include_tasks: installation.yml
+  when: not binary_check_result.stat.exists or consul_force_update
+
+- name: general preparation
+  include_tasks: preparation.yml
+
+- name: configuration
+  include_tasks: configuration.yml

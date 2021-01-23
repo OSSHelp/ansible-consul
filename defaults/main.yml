@@ -1,0 +1,37 @@
+---
+
+consul_version: "1.6.3"
+consul_archive_name: "consul_{{ consul_version }}_linux_amd64.zip"
+consul_binary_url: "https://releases.hashicorp.com/consul/{{ consul_version }}/{{ consul_archive_name }}"
+consul_binary_checksum: "https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_SHA256SUMS"
+consul_force_update: false
+
+consul_user: consul
+consul_group: consul
+consul_service_name: consul
+consul_binary_name: consul
+consul_binary_dir: "/usr/local/bin"
+consul_config_dir: "/etc/consul.d"
+consul_data_dir: "/var/lib/consul"
+consul_agent_cfg_name: "consul.json"
+consul_server_cfg_name: "server.json"
+consul_pid_file: "/var/run/consul/consul.pid"
+consul_systemd_unit: "/etc/systemd/system/consul.service"
+
+consul_agent_params:
+  encrypt: "secret_key_here"
+  datacenter: "dc1"
+  node_name: "{{ ansible_hostname }}"
+  data_dir: "{{ consul_data_dir }}"
+  retry_join: [ "netdata-master" ]
+  pid_file: "{{ consul_pid_file }}"
+  advertise_addr: ""
+  enable_local_script_checks: true
+
+consul_configure_server: false
+consul_server_params:
+  encrypt": "secret_key_here"
+  server": true
+  enable_syslog": true
+  disable_remote_exec": true
+  rejoin_after_leave": true

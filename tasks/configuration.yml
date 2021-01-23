@@ -1,0 +1,36 @@
+---
+
+- name: prepare agent config
+  template:
+    src: agent.j2
+    dest: "{{ consul_config_dir }}/{{ consul_agent_cfg_name }}"
+    owner: root
+    group: "{{ consul_group }}"
+    mode: 0640
+  notify: restart consul service
+
+- name: prepare server config
+  template:
+    src: server.j2
+    dest: "{{ consul_config_dir }}/{{ consul_server_cfg_name }}"
+    owner: root
+    group: "{{ consul_group }}"
+    mode: 0640
+  when: consul_configure_server
+  notify: restart consul service
+
+- name: prepare systemd unit
+  template:
+    src: systemd_unit.j2
+    dest: "/etc/systemd/system/{{ consul_service_name }}.service"
+    owner: root
+    group: root
+  notify:
+    - reload consul unit
+    - restart consul service
+
+- name: enable service
+  service:
+    name: "{{ consul_service_name }}"
+    state: started
+    enabled: true
