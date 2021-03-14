@@ -1,17 +1,15 @@
 # Consul
 
-| master |
-| -------- |
-| [![Build Status](https://drone.osshelp.ru/api/badges/ansible/consul/status.svg)](https://drone.osshelp.ru/ansible/consul) |
+[![Build Status](https://drone.osshelp.ru/api/badges/ansible/consul/status.svg)](https://drone.osshelp.ru/ansible/consul)
 
-Role which installs Consul and generates needed JSON-configs.
+Role which installs Consul and generates needed JSON-config.
 
 ## Deploy example (do not copy blindly!)
 
 ```yaml
     - role: consul
       consul_version: "1.6.3"
-      consul_agent_params:
+      consul_params:
         encrypt: "secret_key_here"
         datacenter: "test-datacenter"
         node_name: "test-node"
@@ -19,26 +17,19 @@ Role which installs Consul and generates needed JSON-configs.
         retry_join: [ "netdata-master" ]
         pid_file: "/var/run/consul/consul.pid"
         enable_local_script_checks: true
-      consul_configure_server: true
-      consul_server_params:
-        encrypt: "secret_key_here"
-        server: true
-        enable_syslog: true
-        disable_remote_exec: true
-        rejoin_after_leave: true
 ```
 
-Pay attention to consul_configure_server variable. By default it is set to "false", so server.json will not be generated. Secret keys must be base64, or Consul will not start.
+Secret keys must be base64, or Consul will not start.
 
 ## About JSON generation
 
-Configs are being generated from YML (variables consul_agent_params and consul_server_params). Consul has quite straight-forward configuration for agent/server, so in most cases you will be able to describe with YML any parameters needed. For example, this:
+Configs are being generated from YML (variable `consul_params`). Consul has quite straight-forward configuration, so in most cases you will be able to describe with YML any parameters needed. For example, this:
 
 ```yaml
-      consul_agent_params:
-        enable_local_script_checks: true
-        pid_file: "/var/run/consul/consul.pid"
-        retry_join: [ "netdata-master" ]
+consul_params:
+  enable_local_script_checks: true
+  pid_file: "/var/run/consul/consul.pid"
+  retry_join: [ "netdata-master" ]
 ```
 
 will result in such JSON:

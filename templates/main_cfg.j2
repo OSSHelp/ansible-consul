@@ -1,0 +1,3 @@
+{% if consul_params is defined and consul_params|length %}
+{{ consul_params | to_nice_json }}
+{% endif %}

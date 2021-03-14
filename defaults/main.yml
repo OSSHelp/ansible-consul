@@ -13,12 +13,11 @@ consul_binary_name: consul
 consul_binary_dir: "/usr/local/bin"
 consul_config_dir: "/etc/consul.d"
 consul_data_dir: "/var/lib/consul"
-consul_agent_cfg_name: "consul.json"
-consul_server_cfg_name: "server.json"
+consul_cfg_name: "consul.json"
 consul_pid_file: "/var/run/consul/consul.pid"
 consul_systemd_unit: "/etc/systemd/system/consul.service"
 
-consul_agent_params:
+consul_params:
   encrypt: "secret_key_here"
   datacenter: "dc1"
   node_name: "{{ ansible_hostname }}"
@@ -27,11 +26,3 @@ consul_agent_params:
   pid_file: "{{ consul_pid_file }}"
   advertise_addr: ""
   enable_local_script_checks: true
-
-consul_configure_server: false
-consul_server_params:
-  encrypt": "secret_key_here"
-  server": true
-  enable_syslog": true
-  disable_remote_exec": true
-  rejoin_after_leave": true
