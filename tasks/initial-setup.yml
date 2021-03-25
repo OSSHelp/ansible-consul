@@ -1,0 +1,15 @@
+---
+- name: create directory {{ consul_templates_dir }}/consul
+  file:
+    path: "{{ consul_templates_dir }}/consul"
+    state: directory
+    owner: "root"
+    group: "root"
+
+- name: place inital-setup script
+  template:
+    src: initial-setup.j2
+    dest: "{{ consul_templates_dir }}/consul/initial-setup"
+    owner: "root"
+    group: "root"
+    mode: 0750

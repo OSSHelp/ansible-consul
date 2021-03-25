@@ -10,6 +10,12 @@ User={{ consul_user }}
 Group={{ consul_group }}
 RuntimeDirectory={{ consul_service_name }}
 RuntimeDirectoryMode=0755
+{% if consul_initial_setup %}{% if ansible_distribution_release == 'bionic' or ansible_distribution_release == 'focal' %}
+ExecStartPre=+{{ consul_templates_dir }}/consul/initial-setup
+{% elif ansible_distribution_release == 'xenial' %}
+PermissionsStartOnly=true
+ExecStartPre={{ consul_templates_dir }}/consul/initial-setup
+{% endif %}{% endif %}
 ExecStart={{ consul_binary_dir }}/{{ consul_binary_name }} agent -config-dir={{ consul_config_dir }}/
 ExecReload={{ consul_binary_dir }}/{{ consul_binary_name }} reload
 KillMode=process
@@ -18,3 +24,10 @@ LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
+
+{% if ansible_distribution_release == 'bionic' or ansible_distribution_release == 'focal' %}
+ExecStartPre=+{{ consul_templates_dir }}/consul/initial-setup
+{% elif ansible_distribution_release == 'xenial' %}
+PermissionsStartOnly=true
+ExecStartPre={{ consul_templates_dir }}/consul/initial-setup
+{% endif %}

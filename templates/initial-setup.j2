@@ -1,0 +1,11 @@
+#!/bin/bash
+
+data_dir="/var/lib/consul"
+consul_user="{{ consul_user }}"
+consul_group="{{ consul_group }}"
+
+test -d "${data_dir}" || {
+  mkdir -pv "${data_dir}" && \
+    chmod 755 "${data_dir}" && \
+      chown "${consul_user}:${consul_group}" "${data_dir}"
+}

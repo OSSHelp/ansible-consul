@@ -9,6 +9,7 @@ Role which installs Consul and generates needed JSON-config.
 ```yaml
     - role: consul
       consul_version: "1.6.3"
+      consul_initial_setup: true
       consul_params:
         encrypt: "secret_key_here"
         datacenter: "test-datacenter"

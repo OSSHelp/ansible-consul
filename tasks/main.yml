@@ -9,6 +9,10 @@
   include_tasks: installation.yml
   when: not binary_check_result.stat.exists or consul_force_update
 
+- name: prepare initial-setup script
+  include_tasks: initial-setup.yml
+  when: consul_initial_setup
+
 - name: general preparation
   include_tasks: preparation.yml
 
