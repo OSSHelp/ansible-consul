@@ -24,10 +24,3 @@ LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
-
-{% if ansible_distribution_release == 'bionic' or ansible_distribution_release == 'focal' %}
-ExecStartPre=+{{ consul_templates_dir }}/consul/initial-setup
-{% elif ansible_distribution_release == 'xenial' %}
-PermissionsStartOnly=true
-ExecStartPre={{ consul_templates_dir }}/consul/initial-setup
-{% endif %}
