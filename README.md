@@ -22,6 +22,18 @@ Role which installs Consul and generates needed JSON-config.
 
 Secret keys must be base64, or Consul will not start.
 
+## Advertising to existing interface
+
+Could be done with parameters:
+
+```yaml
+consul_advertise_iface:
+  enabled: true
+  iface: eth0
+```
+
+Where `eth0` must be replaced with proper interface name.
+
 ## About JSON generation
 
 Configs are being generated from YML (variable `consul_params`). Consul has quite straight-forward configuration, so in most cases you will be able to describe with YML any parameters needed. For example, this:

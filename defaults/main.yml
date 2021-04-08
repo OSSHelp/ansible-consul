@@ -28,3 +28,7 @@ consul_params:
   pid_file: "{{ consul_pid_file }}"
   advertise_addr: ""
   enable_local_script_checks: true
+
+consul_advertise_iface:
+  enabled: false
+  iface: eth0
