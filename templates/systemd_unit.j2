@@ -16,7 +16,7 @@ ExecStartPre=+{{ consul_templates_dir }}/consul/initial-setup
 PermissionsStartOnly=true
 ExecStartPre={{ consul_templates_dir }}/consul/initial-setup
 {% endif %}{% endif %}
-ExecStart={{ consul_binary_dir }}/{{ consul_binary_name }} agent -config-dir={{ consul_config_dir }}/ {% if consul_advertise_iface.enabled %}-advertise '{% raw %}{{{% endraw %} GetInterfaceIP "{{ consul_advertise_iface.iface }}" {% raw %}}}{% endraw %}'{% endif %}
+ExecStart={{ consul_binary_dir }}/{{ consul_binary_name }} agent -config-dir={{ consul_config_dir }}/ {% if consul_ui_content_path|length > 0 %}-ui-content-path={{ consul_ui_content_path }}/ {% endif %}{% if consul_advertise_iface.enabled %}-advertise '{% raw %}{{{% endraw %} GetInterfaceIP "{{ consul_advertise_iface.iface }}" {% raw %}}}{% endraw %}'{% endif %}
 
 ExecReload={{ consul_binary_dir }}/{{ consul_binary_name }} reload
 KillMode=process

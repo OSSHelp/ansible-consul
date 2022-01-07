@@ -34,6 +34,16 @@ consul_advertise_iface:
 
 Where `eth0` must be replaced with proper interface name.
 
+## Controling UI path
+
+Could be made by overriding `consul_ui_content_path` param:
+
+```yaml
+consul_ui_content_path: /ui/consul
+```
+
+By default, the path is `/ui/`, for example `http://localhost:8500/ui/`. Only alphanumerics, `-`, and `_` are allowed in a custom path. `/v1/` is not allowed as it would overwrite the API endpoint.
+
 ## About JSON generation
 
 Configs are being generated from YML (variable `consul_params`). Consul has quite straight-forward configuration, so in most cases you will be able to describe with YML any parameters needed. For example, this:
@@ -74,5 +84,5 @@ Not supported yet, but will be added later. For now just put needed JSONs via ad
 
 ## TODO
 
+- Custom services registration
 - Check the role in various builds
-- Make custom services registration available

@@ -32,3 +32,5 @@ consul_params:
 consul_advertise_iface:
   enabled: false
   iface: eth0
+
+consul_ui_content_path: ''
