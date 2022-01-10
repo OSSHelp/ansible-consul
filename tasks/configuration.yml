@@ -9,6 +9,17 @@
     mode: 0640
   notify: restart consul service
 
+- name: generate services config
+  template:
+    src: consul_service.j2
+    dest: "{{ consul_config_dir }}/service-{{ item | json_query(\"service.id\") }}.json"
+    owner: root
+    group: "{{ consul_group }}"
+    mode: 0640
+  loop: "{{ consul_services }}"
+  notify: restart consul service
+  when: consul_services | length > 0
+
 - name: prepare systemd unit
   template:
     src: systemd_unit.j2

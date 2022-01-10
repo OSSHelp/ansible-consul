@@ -19,6 +19,7 @@ consul_cfg_name: "consul.json"
 consul_pid_file: "/var/run/consul/consul.pid"
 consul_systemd_unit: "/etc/systemd/system/consul.service"
 
+consul_ui_content_path: ''
 consul_params:
   encrypt: "secret_key_here"
   datacenter: "dc1"
@@ -33,4 +34,4 @@ consul_advertise_iface:
   enabled: false
   iface: eth0
 
-consul_ui_content_path: ''
+consul_services: []

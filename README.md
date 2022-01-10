@@ -8,7 +8,7 @@ Role which installs Consul and generates needed JSON-config.
 
 ```yaml
     - role: consul
-      consul_version: "1.6.3"
+      consul_version: "1.11.1"
       consul_initial_setup: true
       consul_params:
         encrypt: "secret_key_here"
@@ -18,6 +18,31 @@ Role which installs Consul and generates needed JSON-config.
         retry_join: [ "netdata-master" ]
         pid_file: "/var/run/consul/consul.pid"
         enable_local_script_checks: true
+      consul_services:
+        - service:
+            id: netdata
+            name: netdata
+            tags: ['netdata']
+            port: 19999
+            checks:
+              - id: netdata-health
+                name: netdata-health
+                http: http://localhost:19999/api/v1/info
+                method: GET
+                interval: 60s
+                header:
+                  accept: ['application/json']
+        - service:
+            id: sshd
+            name: sshd
+            tags: ['sshd']
+            port: 22
+            checks:
+              - id: sshd-health
+                name: sshd-health
+                interval: 60s
+                tcp: localhost:22
+                timeout: 1s
 ```
 
 Secret keys must be base64, or Consul will not start.
@@ -59,21 +84,21 @@ will result in such JSON:
 
 ```json
 {
-    "enable_local_script_checks": true,
-    "pid_file": "/var/run/consul/consul.pid",
-    "retry_join": [
-        "netdata-master"
-    ]
+  "enable_local_script_checks": true,
+  "pid_file": "/var/run/consul/consul.pid",
+  "retry_join": [
+    "netdata-master"
+  ]
 }
 ```
 
-## Cluster initialization
-
-Not supported by the role, and there is no assurance that it will be implemented. You need to bootstrap manually.
-
 ## Services registration
 
-Not supported yet, but will be added later. For now just put needed JSONs via additional tasks.
+You can describe any configuration with `consul_services` list (see example above), which is then converted to json configs. Keep in mind that this role can't delete old cfgs, after removing services from the list.
+
+## Cluster initialization
+
+Not supported by the role, and there is no assurance that it will be implemented. You need to bootstrap manually, or set `consul_params.bootstrap` to `true`.
 
 ## Useful links
 
@@ -84,5 +109,12 @@ Not supported yet, but will be added later. For now just put needed JSONs via ad
 
 ## TODO
 
-- Custom services registration
-- Check the role in various builds
+- ...
+
+## License
+
+GPL3
+
+## Author
+
+OSSHelp Team, see <https://oss.help>
