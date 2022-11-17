@@ -100,10 +100,23 @@ You can describe any configuration with `consul_services` list (see example abov
 
 Not supported by the role, and there is no assurance that it will be implemented. You need to bootstrap manually, or set `consul_params.bootstrap` to `true`.
 
+## Versions available without URLs overwriting
+
+- 1.14.0
+- 1.13.3
+- 1.12.6
+- 1.11.11
+- 1.11.1
+- 1.10.12
+- 1.9.17
+- 1.8.19
+- 1.7.14
+- 1.6.3
+
 ## Useful links
 
 - [Official documentation](https://www.consul.io/docs/index.html)
-- [Consul releases available](https://releases.hashicorp.com/consul/)
+- [Official releases](https://releases.hashicorp.com/consul/)
 - [Our article with general information about Consul](https://rm.osshelp.ru/projects/support-servers/knowledgebase/articles/3364)
 - [Our article, describing Consul setup and configuration](https://oss.help/kb3367)
 

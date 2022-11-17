@@ -2,8 +2,9 @@
 
 consul_version: "1.6.3"
 consul_archive_name: "consul_{{ consul_version }}_linux_amd64.zip"
-consul_binary_url: "https://releases.hashicorp.com/consul/{{ consul_version }}/{{ consul_archive_name }}"
-consul_binary_checksum: "https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_SHA256SUMS"
+
+consul_binary_url: "https://oss.help/builds/consul/{{ consul_version }}/{{ consul_archive_name }}"
+consul_binary_checksum: "https://oss.help/builds/consul/{{ consul_version }}/consul_{{ consul_version }}_SHA256SUMS"
 consul_force_update: false
 consul_initial_setup: false
 consul_templates_dir: /usr/local/osshelp
