@@ -1,6 +1,6 @@
 # Consul
 
-[![Build Status](https://drone.osshelp.ru/api/badges/ansible/consul/status.svg)](https://drone.osshelp.ru/ansible/consul)
+[![Build Status](https://drone.osshelp.io/api/badges/ansible/consul/status.svg)](https://drone.osshelp.io/ansible/consul)
 
 Role which installs Consul and generates needed JSON-config.
 
@@ -117,7 +117,7 @@ Not supported by the role, and there is no assurance that it will be implemented
 
 - [Official documentation](https://www.consul.io/docs/index.html)
 - [Official releases](https://releases.hashicorp.com/consul/)
-- [Our article with general information about Consul](https://rm.osshelp.ru/projects/support-servers/knowledgebase/articles/3364)
+- [Our article with general information about Consul](https://rm.osshelp.io/projects/support-servers/knowledgebase/articles/3364)
 - [Our article, describing Consul setup and configuration](https://oss.help/kb3367)
 
 ## TODO
